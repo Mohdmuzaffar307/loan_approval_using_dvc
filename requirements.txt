@@ -1,0 +1,6 @@
+# local package
+pandas
+numpy
+dvc
+scikit-learn
+
