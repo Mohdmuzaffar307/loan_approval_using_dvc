@@ -20,13 +20,15 @@ def load_data(train_url:str,test_url:str )->tuple[pd.DataFrame,pd.DataFrame]:
 
 
 def encoding(x_train :pd.DataFrame,x_test:pd.DataFrame)->tuple[pd.DataFrame,pd.DataFrame]:
-     # Separate categorical and numerical columns
+    
+    # Separate categorical and numerical columns
     cat_cols = x_train.select_dtypes(include=['object', 'category']).columns
     num_cols = x_train.select_dtypes(include=['int64', 'float64']).columns
 
     # One-hot encode categorical columns
     ohe = OneHotEncoder(drop='first', handle_unknown='ignore', sparse_output=False)
     ohe.fit(x_train[cat_cols])
+    
 
     x_train_cat = pd.DataFrame(ohe.transform(x_train[cat_cols]), 
                                columns=ohe.get_feature_names_out(cat_cols),
@@ -34,12 +36,14 @@ def encoding(x_train :pd.DataFrame,x_test:pd.DataFrame)->tuple[pd.DataFrame,pd.D
     x_test_cat = pd.DataFrame(ohe.transform(x_test[cat_cols]), 
                               columns=ohe.get_feature_names_out(cat_cols),
                               index=x_test.index)
+                              
+   
 
     # Scale numerical columns
     scaler = StandardScaler()
     scaler.fit(x_train[num_cols])
     
-    
+
     x_train_num = pd.DataFrame(scaler.transform(x_train[num_cols]), 
                                columns=num_cols,
                                index=x_train.index)
@@ -73,7 +77,7 @@ def save_data(train_path:str,test_path:str,x_train_final_feature:pd.DataFrame,x_
     os.makedirs(os.path.dirname(test_path),exist_ok=True)
     x_train_final_feature.to_csv(train_path,index=False)
     x_test_final_feature.to_csv(test_path,index=False)
-
+    
 
 def main():
     params_value=load_yaml('params.yaml')

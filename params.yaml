@@ -3,3 +3,5 @@ data_preprocessing:
 
 feature_engineering:
   k : 30
+model_building:
+  n_estimator : 150

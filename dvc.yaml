@@ -30,6 +30,8 @@ stages:
     - data\interim\x_test_final.csv
     - data\interim\x_train_final.csv
     - src\models\model_building.py
+    params:
+    - model_building.n_estimator
     outs:
     - artifacts\model\random_forest.joblib
   model_eval:
@@ -39,3 +41,8 @@ stages:
     - src\models\model_eval.py
     metrics:
     - artifacts\model\metrics
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step

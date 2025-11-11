@@ -5,8 +5,8 @@ stages:
     deps:
     - path: src\data\data_ingestion.py
       hash: md5
-      md5: 3cdc28af2e264b4bc40a023dadbdefc5
-      size: 613
+      md5: f1d634d450dad2b77d354300e8940bc6
+      size: 591
     outs:
     - path: data\raw\raw_data.csv
       hash: md5
@@ -21,8 +21,8 @@ stages:
       size: 115793
     - path: src\data_preprocessing\data_preprocessing.py
       hash: md5
-      md5: 819f8c1e8b9b95bc2c51a73d280c09e6
-      size: 1291
+      md5: 81ff2d3f6bd4a831c7c93b4c4983c804
+      size: 1253
     params:
       params.yaml:
         data_preprocessing.test_size: 0.2
@@ -48,8 +48,8 @@ stages:
       size: 64164
     - path: src\features\feature_engineering.py
       hash: md5
-      md5: 414b08ce5f8ce84e14629cfb556b8286
-      size: 3722
+      md5: 57b06db744293b5b393bca72c86f51d5
+      size: 3668
     outs:
     - path: data\interim\x_test_final.csv
       hash: md5
@@ -72,24 +72,27 @@ stages:
       size: 318563
     - path: src\models\model_building.py
       hash: md5
-      md5: f3daf960b2657ad31c59fa7f2ff8b775
-      size: 970
+      md5: a3a0ecdf798222d865a81b36d4ef7e04
+      size: 1223
+    params:
+      params.yaml:
+        model_building.n_estimator: 150
     outs:
     - path: artifacts\model\random_forest.joblib
       hash: md5
-      md5: d464c586bddc73329c544fa6853d81d4
-      size: 449913
+      md5: f3238878f624d1894a42686000e5d977
+      size: 591033
   model_eval:
     cmd: python src\models\model_eval.py
     deps:
     - path: artifacts\model\random_forest.joblib
       hash: md5
-      md5: d464c586bddc73329c544fa6853d81d4
-      size: 449913
+      md5: f3238878f624d1894a42686000e5d977
+      size: 591033
     - path: src\models\model_eval.py
       hash: md5
-      md5: bff2db6b4ae1b8078ad5b5e10b7cd675
-      size: 1934
+      md5: 6f1e4fdb978e84f58815330011e9ced9
+      size: 4038
     outs:
     - path: artifacts\model\metrics
       hash: md5
